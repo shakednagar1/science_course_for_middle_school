@@ -68,11 +68,11 @@ window.COURSE = {
       id: "g7-6", grade: "ז", num: 6, week: "שבועות 6–7",
       title: "מאזן מים, מאזן חום והגוף כמערכת אחת",
       lessons: [
-        { id: "g7-6-1", title: "מאזן המים באדם" },
-        { id: "g7-6-2", title: "מאזן המים בצמח" },
-        { id: "g7-6-3", title: "מאזן החום בגוף" },
-        { id: "g7-6-4", title: "התייבשות ומכת חום" },
-        { id: "g7-6-5", title: "הגוף כמערכת־על" }
+        { id: "g7-6-1", title: "מאזן המים באדם", path: "g7/level6/lesson1.html" },
+        { id: "g7-6-2", title: "מאזן המים בצמח", path: "g7/level6/lesson2.html" },
+        { id: "g7-6-3", title: "מאזן החום בגוף", path: "g7/level6/lesson3.html" },
+        { id: "g7-6-4", title: "התייבשות ומכת חום", path: "g7/level6/lesson4.html" },
+        { id: "g7-6-5", title: "הגוף כמערכת־על", path: "g7/level6/lesson5.html" }
       ]
     },
     {
