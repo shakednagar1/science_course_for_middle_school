@@ -79,9 +79,9 @@ window.COURSE = {
       id: "g7-7", grade: "ז", num: 7, week: "שבוע 7",
       title: "טכנולוגיה",
       lessons: [
-        { id: "g7-7-1", title: "מהי טכנולוגיה" },
-        { id: "g7-7-2", title: "תהליך התכן ההנדסי" },
-        { id: "g7-7-3", title: "השפעת הטכנולוגיה על החברה והסביבה" }
+        { id: "g7-7-1", title: "מהי טכנולוגיה", path: "g7/level7/lesson1.html" },
+        { id: "g7-7-2", title: "תהליך התכן ההנדסי", path: "g7/level7/lesson2.html" },
+        { id: "g7-7-3", title: "השפעת הטכנולוגיה על החברה והסביבה", path: "g7/level7/lesson3.html" }
       ]
     },
     {

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>תהליך התכן ההנדסי</title>
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body data-root="../../" data-lesson="g7-7-2">
+<main>
+<h1>תהליך התכן ההנדסי</h1>
+  <p class="lead">מהנדסים לא ממציאים פתרון "בהשראה" ברגע אחד. הם עובדים בשלבים מסודרים, בודקים ומשפרים שוב ושוב. השלבים האלה נקראים <b>תהליך התכן ההנדסי</b>.</p>
+
+  <div class="slides">
+    <section class="slide">
+      <h2>סרטון פתיחה</h2>
+      <div class="video" data-yt="fxJWin195kU" data-lang="אנגלית" data-title="The Engineering Process – Crash Course Kids"></div>
+      <div class="box goals">
+        <span class="box-title">🎯 בסוף השיעור תדעי:</span>
+        <ul>
+          <li>את שלבי תהליך התכן ההנדסי.</li>
+          <li>מה הם דרישות ואילוצים.</li>
+          <li>לבחור בין פתרונות לפי טבלת השוואה.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>השלבים</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 560 300" role="img" aria-label="מעגל התכן ההנדסי">
+          <defs><marker id="ed" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 z" fill="#555"/></marker></defs>
+          <g font-size="14" text-anchor="middle">
+            <rect x="200" y="10" width="160" height="44" rx="12" fill="#d6eaf8" stroke="#2e86c1"/><text x="280" y="38">1. זיהוי הצורך</text>
+            <rect x="390" y="70" width="160" height="44" rx="12" fill="#d6eaf8" stroke="#2e86c1"/><text x="470" y="98">2. דרישות ואילוצים</text>
+            <rect x="390" y="170" width="160" height="44" rx="12" fill="#d6eaf8" stroke="#2e86c1"/><text x="470" y="198">3. רעיונות ובחירה</text>
+            <rect x="200" y="240" width="160" height="44" rx="12" fill="#d5f5e3" stroke="#1e8449"/><text x="280" y="268">4. בניית אב־טיפוס</text>
+            <rect x="10" y="170" width="160" height="44" rx="12" fill="#fdebd0" stroke="#ca6f1e"/><text x="90" y="198">5. בדיקה והערכה</text>
+            <rect x="10" y="70" width="160" height="44" rx="12" fill="#fadbd8" stroke="#c0392b"/><text x="90" y="98">6. שיפור</text>
+          </g>
+          <g stroke="#555" stroke-width="2" fill="none" marker-end="url(#ed)">
+            <path d="M360 38 Q450 40 465 66"/>
+            <path d="M470 116 L470 166"/>
+            <path d="M465 216 Q450 262 364 262"/>
+            <path d="M200 262 Q100 262 92 218"/>
+            <path d="M90 168 L90 118"/>
+            <path d="M120 68 Q140 30 196 32"/>
+          </g>
+        </svg>
+        <figcaption>זה מעגל: אחרי השיפור בודקים שוב, עד שהפתרון עונה על הדרישות.</figcaption>
+      </figure>
+      <ul>
+        <li><b>זיהוי הצורך</b> – מה הבעיה? למי? למשל: "העציץ בכיתה מתייבש בסוף השבוע".</li>
+        <li><b>דרישות ואילוצים</b> – <span class="term">דרישות</span>: מה הפתרון חייב לעשות (להשקות 3 ימים). <span class="term">אילוצים</span>: מגבלות (תקציב 20 ₪, בלי חשמל, חומרים זמינים).</li>
+        <li><b>רעיונות ובחירה</b> – מעלים כמה רעיונות ובוחרים את הטוב ביותר לפי קריטריונים.</li>
+        <li><b>אב־טיפוס</b> – דגם ראשון לבדיקה.</li>
+        <li><b>בדיקה והערכה</b> – האם עונה על הדרישות? מודדים!</li>
+        <li><b>שיפור</b> – מתקנים את מה שלא עבד, ובודקים שוב.</li>
+      </ul>
+    </section>
+
+    <section class="slide">
+      <h2>בחירה בין פתרונות</h2>
+      <p>מפעל צריך אריזה ששומרת על הפיצה חמה במשלוח. המהנדסים בדקו 3 חומרים: שמו פיצה חמה בכל אריזה ומדדו את הטמפרטורה אחרי 20 דקות.</p>
+      <div class="table-wrap">
+      <table>
+        <tr><th>חומר האריזה</th><th>טמפרטורה אחרי 20 דק׳</th><th>מחיר</th><th>אפשר למחזר?</th></tr>
+        <tr><td>א</td><td>45°C</td><td>זול</td><td>כן</td></tr>
+        <tr><td>ב</td><td>62°C</td><td>בינוני</td><td>כן</td></tr>
+        <tr><td>ג</td><td>65°C</td><td>יקר מאוד</td><td>לא</td></tr>
+      </table>
+      </div>
+      <p>חומר ג מבודד הכי טוב, אבל יקר ולא ממוחזר. חומר ב כמעט טוב כמוהו, זול יותר וממוחזר – כנראה <b>הבחירה המתאימה ביותר</b>. בוחרים לפי <b>כל</b> הדרישות, לא רק לפי אחת.</p>
+      <div class="box note">
+        <span class="box-title">💡 שימי לב</span>
+        <p>גם בניסוי של המהנדסים צריך <b>ניסוי מבוקר</b> (שלב 1!): אותה פיצה, אותה טמפרטורה התחלתית, אותו זמן – רק חומר האריזה משתנה.</p>
+      </div>
+      <div class="box summary">
+        <span class="box-title">📝 סיכום</span>
+        <ul>
+          <li>צורך ← דרישות ואילוצים ← רעיונות ובחירה ← אב־טיפוס ← בדיקה ← שיפור.</li>
+          <li>דרישות = מה חייב לעשות; אילוצים = מגבלות.</li>
+          <li>בוחרים פתרון לפי כמה קריטריונים, ובודקים בניסוי מבוקר.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide practice">
+      <h2>✏️ שאלות בדיקה</h2>
+
+      <div class="q" data-correct="1">
+        <div class="q-text">מה השלב הראשון בתהליך התכן ההנדסי?</div>
+        <div class="options">
+          <button>זיהוי הצורך או הבעיה</button>
+          <button>בניית אב־טיפוס</button>
+          <button>בדיקת המוצר</button>
+          <button>מכירת המוצר</button>
+        </div>
+        <div class="explain">קודם מבינים מה הבעיה – רק אחר כך מחפשים פתרון.</div>
+      </div>
+
+      <div class="q" data-correct="3">
+        <div class="q-text">בפרויקט "מתקן השקיה לעציץ" נקבע: "התקציב הוא 20 ₪ בלבד". מה זה?</div>
+        <div class="options">
+          <button>דרישה</button>
+          <button>אב־טיפוס</button>
+          <button>אילוץ</button>
+          <button>תוצאה</button>
+        </div>
+        <div class="explain">אילוץ הוא מגבלה על הפתרון – כמו תקציב, זמן או חומרים.</div>
+      </div>
+
+      <div class="q" data-correct="2">
+        <div class="q-text">האב־טיפוס לא השקה את העציץ מספיק זמן. מה השלב הבא?</div>
+        <div class="options">
+          <button>לוותר על הפרויקט</button>
+          <button>לשפר את התכנון ולבדוק שוב</button>
+          <button>להתחיל לייצר אלף מתקנים</button>
+          <button>לשנות את הבעיה</button>
+        </div>
+        <div class="explain">התהליך הוא מעגל: בודקים, משפרים ובודקים שוב.</div>
+      </div>
+
+      <div class="q" data-correct="4">
+        <div class="q-text">כשבודקים איזה חומר אריזה שומר הכי טוב על חום, מה צריך להיות <b>שונה</b> בין האריזות?</div>
+        <div class="options">
+          <button>הטמפרטורה ההתחלתית של הפיצה</button>
+          <button>זמן המדידה</button>
+          <button>גודל הפיצה</button>
+          <button>רק החומר של האריזה</button>
+        </div>
+        <div class="explain">בניסוי מבוקר משנים רק גורם אחד – כאן, חומר האריזה.</div>
+      </div>
+    </section>
+  </div>
+</main>
+<script src="../../js/course-data.js"></script>
+<script src="../../js/course.js"></script>
+</body>
+</html>
