@@ -254,3 +254,7 @@ details.answer > div {
 textarea.code { width: 100%; font-family: monospace; font-size: 13px; direction: ltr; min-height: 70px; border-radius: 8px; border: 1px solid var(--border); padding: 8px; }
 .sync-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
 .small { font-size: 15px; color: var(--muted); }
+
+/* באיורים: עיגון טקסט משמאל לימין, וסדר אותיות לפי השפה */
+figure.diagram svg { direction: ltr; }
+figure.diagram svg text { unicode-bidi: plaintext; }
