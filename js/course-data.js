@@ -56,12 +56,12 @@ window.COURSE = {
       id: "g7-5", grade: "ז", num: 5, week: "שבועות 5–6",
       title: "מערכת ההובלה",
       lessons: [
-        { id: "g7-5-1", title: "למה צריך מערכת הובלה" },
-        { id: "g7-5-2", title: "הלב" },
-        { id: "g7-5-3", title: "כלי הדם ומחזורי הדם" },
-        { id: "g7-5-4", title: "הדם ומרכיביו" },
-        { id: "g7-5-5", title: "בריאות הלב וכלי הדם" },
-        { id: "g7-5-6", title: "הובלה בצמח: עצה ושיפה" }
+        { id: "g7-5-1", title: "למה צריך מערכת הובלה", path: "g7/level5/lesson1.html" },
+        { id: "g7-5-2", title: "הלב", path: "g7/level5/lesson2.html" },
+        { id: "g7-5-3", title: "כלי הדם ומחזורי הדם", path: "g7/level5/lesson3.html" },
+        { id: "g7-5-4", title: "הדם ומרכיביו", path: "g7/level5/lesson4.html" },
+        { id: "g7-5-5", title: "בריאות הלב וכלי הדם", path: "g7/level5/lesson5.html" },
+        { id: "g7-5-6", title: "הובלה בצמח: עצה ושיפה", path: "g7/level5/lesson6.html" }
       ]
     },
     {
