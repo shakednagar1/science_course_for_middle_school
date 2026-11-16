@@ -21,7 +21,7 @@
 | 1 | גופים, חומרים ותכונותיהם | ✅ 7 שיעורים + מאגר 33 שאלות |
 | 2 | שינויים בחומר ומודל החלקיקים | ✅ 6 שיעורים + מאגר 29 שאלות |
 | 3 | אנרגיה | ✅ 5 שיעורים + מאגר 28 שאלות |
-| 4 | התא | בהכנה |
+| 4 | התא | ✅ 6 שיעורים + מאגר 30 שאלות |
 | 5 | מערכת ההובלה | בהכנה |
 | 6 | מאזן מים, מאזן חום והגוף כמערכת אחת | בהכנה |
 | 7 | טכנולוגיה | בהכנה |
@@ -51,6 +51,12 @@
 | 3.3 חום וטמפרטורה | What's the difference between Heat and Temperature? (`2wqtK3GNFdQ`) | אנגלית | כנראה FuseSchool – לבדוק |
 | 3.4 מעבר חום | Heat Transfer: Conduction, Convection & Radiation (`XRSiz7f5XWw`) | אנגלית | ערוץ לא מאומת – לבדוק |
 | 3.5 שימור אנרגיה | Conservation of Energy (`Um04eHOqGlM`) | אנגלית | FuseSchool |
+| 4.1 מאפייני החיים | Characteristics of Life (`cQPVXrV0GNA`) | אנגלית | Amoeba Sisters |
+| 4.2 רמות ארגון | Biological Levels (`EtWknf1gzKo`) | אנגלית | Amoeba Sisters |
+| 4.3 מבנה התא | Introduction to Cells: The Grand Cell Tour (`8IlzKri08kk`) | אנגלית | Amoeba Sisters |
+| 4.4 מבנה ותפקוד | Intro To Cells: Animals & Plants (`LdKcTtabr6Y`) | אנגלית | כנראה FuseSchool – לבדוק |
+| 4.5 נשימה ופוטוסינתזה | Photosynthesis & Respiration (`3XIyweZg6Sw`) | אנגלית | ערוץ לא מאומת – לבדוק |
+| 4.6 מיון יצורים | Animal Classification (`L6anmd7DnYw`) | אנגלית | ערוץ לא מאומת – לבדוק |
 
 ## מבנה הקבצים
 

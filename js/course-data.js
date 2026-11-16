@@ -44,12 +44,12 @@ window.COURSE = {
       id: "g7-4", grade: "ז", num: 4, week: "שבועות 4–5",
       title: "התא – יחידת החיים",
       lessons: [
-        { id: "g7-4-1", title: "מאפייני החיים" },
-        { id: "g7-4-2", title: "רמות ארגון והמיקרוסקופ" },
-        { id: "g7-4-3", title: "מבנה התא: תא בעל חיים ותא צמח" },
-        { id: "g7-4-4", title: "התאמה בין מבנה לתפקוד" },
-        { id: "g7-4-5", title: "תהליכי חיים בתא" },
-        { id: "g7-4-6", title: "מגוון היצורים ומיונם" }
+        { id: "g7-4-1", title: "מאפייני החיים", path: "g7/level4/lesson1.html" },
+        { id: "g7-4-2", title: "רמות ארגון והמיקרוסקופ", path: "g7/level4/lesson2.html" },
+        { id: "g7-4-3", title: "מבנה התא: תא בעל חיים ותא צמח", path: "g7/level4/lesson3.html" },
+        { id: "g7-4-4", title: "התאמה בין מבנה לתפקוד", path: "g7/level4/lesson4.html" },
+        { id: "g7-4-5", title: "תהליכי חיים בתא", path: "g7/level4/lesson5.html" },
+        { id: "g7-4-6", title: "מגוון היצורים ומיונם", path: "g7/level4/lesson6.html" }
       ]
     },
     {
