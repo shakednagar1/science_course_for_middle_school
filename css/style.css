@@ -258,3 +258,10 @@ textarea.code { width: 100%; font-family: monospace; font-size: 13px; direction:
 /* באיורים: עיגון טקסט משמאל לימין, וסדר אותיות לפי השפה */
 figure.diagram svg { direction: ltr; }
 figure.diagram svg text { unicode-bidi: plaintext; }
+
+/* שרשרת המרות אנרגיה (ייצוג מלבנים) */
+.chain { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 10px 0; }
+.chain .e { background: var(--card); border: 2px solid var(--accent); border-radius: 8px; padding: 4px 10px; font-weight: 600; }
+.chain .e small { display: block; font-weight: 400; color: var(--muted); font-size: 13px; }
+.chain .to { color: var(--muted); font-size: 20px; }
+.chain .e.heat { border-color: var(--bad); }

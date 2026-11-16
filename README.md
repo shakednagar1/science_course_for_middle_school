@@ -20,7 +20,7 @@
 |---|---|---|
 | 1 | גופים, חומרים ותכונותיהם | ✅ 7 שיעורים + מאגר 33 שאלות |
 | 2 | שינויים בחומר ומודל החלקיקים | ✅ 6 שיעורים + מאגר 29 שאלות |
-| 3 | אנרגיה | בהכנה |
+| 3 | אנרגיה | ✅ 5 שיעורים + מאגר 28 שאלות |
 | 4 | התא | בהכנה |
 | 5 | מערכת ההובלה | בהכנה |
 | 6 | מאזן מים, מאזן חום והגוף כמערכת אחת | בהכנה |
@@ -46,6 +46,11 @@
 | 2.4 פעפוע ולחץ | Diffusion of Gases (`KRLNDTmBFZY`) | אנגלית | FuseSchool |
 | 2.5 הסבר מעברים | Melting, boiling, freezing, condensation and evaporation (`-UhChnl2fv0`) | אנגלית | ערוץ לא מאומת – לבדוק |
 | 2.6 שימור מסה | קרח נמס על מאזניים (`BbdXDSpjYKU`) | ללא דיבור | ערוץ לא מאומת – לבדוק |
+| 3.1 סוגי אנרגיה | Energy Stores and Transfers (`VUworhvk5rw`) | אנגלית | ערוץ לא מאומת – לבדוק |
+| 3.2 המרות אנרגיה | Energy Stores & Transfers in 2 Minutes (`n-ZBIH0CVzQ`) | אנגלית | ערוץ לא מאומת – לבדוק |
+| 3.3 חום וטמפרטורה | What's the difference between Heat and Temperature? (`2wqtK3GNFdQ`) | אנגלית | כנראה FuseSchool – לבדוק |
+| 3.4 מעבר חום | Heat Transfer: Conduction, Convection & Radiation (`XRSiz7f5XWw`) | אנגלית | ערוץ לא מאומת – לבדוק |
+| 3.5 שימור אנרגיה | Conservation of Energy (`Um04eHOqGlM`) | אנגלית | FuseSchool |
 
 ## מבנה הקבצים
 

@@ -33,11 +33,11 @@ window.COURSE = {
       id: "g7-3", grade: "ז", num: 3, week: "שבועות 3–4",
       title: "אנרגיה",
       lessons: [
-        { id: "g7-3-1", title: "סוגי אנרגיה" },
-        { id: "g7-3-2", title: "המרות ומעברי אנרגיה" },
-        { id: "g7-3-3", title: "חום, טמפרטורה ואנרגיה תרמית" },
-        { id: "g7-3-4", title: "מעבר חום: הולכה, הסעה וקרינה" },
-        { id: "g7-3-5", title: "חוק שימור האנרגיה" }
+        { id: "g7-3-1", title: "סוגי אנרגיה", path: "g7/level3/lesson1.html" },
+        { id: "g7-3-2", title: "המרות ומעברי אנרגיה", path: "g7/level3/lesson2.html" },
+        { id: "g7-3-3", title: "חום, טמפרטורה ואנרגיה תרמית", path: "g7/level3/lesson3.html" },
+        { id: "g7-3-4", title: "מעבר חום: הולכה, הסעה וקרינה", path: "g7/level3/lesson4.html" },
+        { id: "g7-3-5", title: "חוק שימור האנרגיה", path: "g7/level3/lesson5.html" }
       ]
     },
     {
