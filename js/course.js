@@ -83,59 +83,160 @@
     var lang = v.getAttribute("data-lang") || "עברית";
     var title = v.getAttribute("data-title") || "";
     var isDemo = v.classList.contains("demo");
-    var note = lang === "אנגלית" ? " אפשר להפעיל כתוביות (CC) ולבחור תרגום אוטומטי לעברית בגלגל ההגדרות." : "";
+    var note = "";
     v.innerHTML = '<div class="frame"><iframe loading="lazy" allowfullscreen ' +
       'allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" ' +
       'src="https://www.youtube-nocookie.com/embed/' + id + '?rel=0&hl=he" title="' + title + '"></iframe></div>' +
       '<div class="vcap"><span class="vlang">' + (isDemo ? "ניסוי · " : "סרטון · ") + lang + '</span>' + title + note + '</div>';
   });
 
-  // ================= שאלות בדיקה בשיעור =================
-  var checkQs = document.querySelectorAll(".q");
-  var mcTotal = 0, mcAnswered = 0, mcRight = 0, scoreEl = null;
-  function paintScore() {
-    if (scoreEl) scoreEl.textContent = "✓ " + mcRight + " נכונות מתוך " + mcAnswered + " (סה״כ " + mcTotal + " שאלות)";
+  // ================= שאלות פתוחות + שאלות בדיקה בשיעור =================
+  // שאלות פתוחות: כותבים תשובה במילים שלך, ואז אפשר לראות תשובה לדוגמה.
+  // שאלות בדיקה: בוחרים תשובות, לוחצים "בדיקה", ורואים כמה נכון. השיעור נפתח רק ב־100%.
+  var practice = document.querySelector(".practice");
+  var openQs = Array.prototype.slice.call(document.querySelectorAll(".open-q"));
+  var MIN_CHARS = 15;
+  function openDone() {
+    return openQs.every(function (o) { return o._ta && o._ta.value.trim().length >= MIN_CHARS; });
   }
-  function maybeComplete() {
-    if (!lessonId || mcAnswered < mcTotal) return;
-    var s = load();
-    if (!s.done[lessonId]) { s.done[lessonId] = 1; save(s); }
-    paintNext();
-  }
-  checkQs.forEach(function (q, idx) {
-    var text = q.querySelector(".q-text");
-    if (text) text.insertAdjacentHTML("afterbegin", '<span class="q-num">' + (idx + 1) + '.</span>');
+  openQs.forEach(function (o, idx) {
+    var model = o.getAttribute("data-model") || "";
+    var qhtml = o.innerHTML;
+    o.innerHTML = '<div class="q-text"><span class="q-num">✍️</span>' + qhtml + '</div>';
+    var ta = el("textarea", { "class": "open-ans", rows: "3", placeholder: "כתבי כאן את התשובה שלך, במילים שלך..." });
+    var btn = el("button", { "class": "btn secondary", type: "button", disabled: "disabled" }, "הצגת תשובה לדוגמה");
+    var mod = el("div", { "class": "model" });
+    mod.innerHTML = "<b>תשובה לדוגמה:</b> " + model + '<div class="small">השווי לתשובה שלך: האם כתבת את הרעיון המרכזי? אם לא – תקני את התשובה שלך.</div>';
+    o.appendChild(ta); o.appendChild(btn); o.appendChild(mod);
+    o._ta = ta;
+    var st = load();
+    if (lessonId && st.open && st.open[lessonId] && st.open[lessonId][idx]) ta.value = st.open[lessonId][idx];
+    function upd() {
+      var ok = ta.value.trim().length >= MIN_CHARS;
+      if (ok) btn.removeAttribute("disabled"); else btn.setAttribute("disabled", "disabled");
+      if (lessonId) {
+        var s2 = load(); s2.open = s2.open || {}; s2.open[lessonId] = s2.open[lessonId] || [];
+        s2.open[lessonId][idx] = ta.value; save(s2);
+      }
+      paintGate();
+    }
+    ta.addEventListener("input", upd);
+    btn.addEventListener("click", function () { mod.classList.add("show"); });
+    if (ta.value.trim().length >= MIN_CHARS) btn.removeAttribute("disabled");
+  });
+
+  var mcQs = [];
+  document.querySelectorAll(".q").forEach(function (q) {
+    if (q.closest && q.closest(".open-q")) return;
     var opts = q.querySelectorAll(".options button");
     if (!opts.length) return;
-    mcTotal++;
-    var correct = parseInt(q.getAttribute("data-correct"), 10) - 1;
+    mcQs.push(q);
+  });
+  mcQs.forEach(function (q, idx) {
+    var text = q.querySelector(".q-text");
+    if (text) text.insertAdjacentHTML("afterbegin", '<span class="q-num">' + (idx + 1) + '.</span>');
+    var opts = Array.prototype.slice.call(q.querySelectorAll(".options button"));
+    q._correct = opts[parseInt(q.getAttribute("data-correct"), 10) - 1];
+    q._pick = null;
     var fb = el("div", { "class": "feedback" });
-    q.appendChild(fb);
-    var explain = q.querySelector(".explain");
-    opts.forEach(function (b, i) {
+    q.appendChild(fb); q._fb = fb;
+    opts.forEach(function (b) {
+      b.type = "button";
       b.addEventListener("click", function () {
-        opts.forEach(function (o) { o.disabled = true; });
-        opts[correct].classList.add("correct");
-        mcAnswered++;
-        if (i === correct) {
-          mcRight++;
-          fb.className = "feedback show good";
-          fb.innerHTML = "✓ נכון! " + (explain ? explain.innerHTML : "");
-        } else {
-          b.classList.add("wrong");
-          fb.className = "feedback show bad";
-          fb.innerHTML = "✗ לא בדיוק. התשובה הנכונה מסומנת בירוק. " + (explain ? explain.innerHTML : "");
-        }
-        paintScore();
-        maybeComplete();
+        if (q._locked) return;
+        opts.forEach(function (o) { o.classList.remove("picked"); });
+        b.classList.add("picked"); q._pick = b;
+        paintGate();
       });
     });
   });
-  var practice = document.querySelector(".practice");
-  if (mcTotal && practice) {
-    scoreEl = el("div", { "class": "score" });
-    practice.appendChild(scoreEl);
-    paintScore();
+
+  var checkBtn = null, gateMsg = null, triesEl = null, resultEl = null;
+  function triesList() {
+    var s = load();
+    return (s.tries && lessonId && s.tries[lessonId]) || [];
+  }
+  function paintTries() {
+    if (!triesEl) return;
+    var t = triesList(), n = mcQs.length;
+    triesEl.innerHTML = t.length ? "הניסיונות שלך: " + t.map(function (k) {
+      return '<span class="try' + (k === n ? " full" : "") + '">' + k + "/" + n + "</span>";
+    }).join(" ") : "";
+  }
+  function paintGate() {
+    if (!checkBtn) return;
+    var left = mcQs.filter(function (q) { return !q._locked && !q._pick; }).length;
+    var msg = "";
+    if (!openDone()) msg = "קודם כתבי תשובה לשאלה הפתוחה (לפחות משפט אחד).";
+    else if (left) msg = "נשארו " + left + " שאלות בלי תשובה.";
+    gateMsg.textContent = msg;
+    checkBtn.disabled = !!msg;
+  }
+  function check() {
+    var right = 0, n = mcQs.length;
+    mcQs.forEach(function (q) {
+      var ex = q.querySelector(".explain");
+      if (q._locked || q._pick === q._correct) {
+        right++;
+        q._locked = true;
+        q.classList.remove("is-wrong"); q.classList.add("is-right");
+        q.querySelectorAll(".options button").forEach(function (o) { o.disabled = true; });
+        q._correct.classList.add("correct");
+        q._fb.className = "feedback show good";
+        q._fb.innerHTML = "✓ נכון! " + (ex ? ex.innerHTML : "");
+      } else {
+        q.classList.add("is-wrong");
+        q._pick.classList.remove("picked"); q._pick.classList.add("wrong");
+        q._fb.className = "feedback show bad";
+        q._fb.innerHTML = "✗ לא נכון. חזרי לשקופיות, חשבי שוב ונסי תשובה אחרת.";
+      }
+    });
+    if (lessonId) {
+      var s = load(); s.tries = s.tries || {}; s.tries[lessonId] = s.tries[lessonId] || [];
+      s.tries[lessonId].push(right);
+      if (right === n) s.done[lessonId] = 1;
+      save(s);
+    }
+    paintTries();
+    if (right === n) {
+      resultEl.className = "check-result good";
+      resultEl.innerHTML = "🎉 " + right + "/" + n + " – כל התשובות נכונות! השיעור הבא נפתח.";
+      checkBtn.style.display = "none"; gateMsg.textContent = "";
+      paintNext();
+    } else {
+      resultEl.className = "check-result bad";
+      resultEl.innerHTML = right + "/" + n + " נכונות. כדי להמשיך צריך את כל התשובות נכונות. תקני את השאלות שסומנו באדום ובדקי שוב.";
+      checkBtn.textContent = "בדיקה חוזרת";
+      // מאפסים רק את השאלות השגויות, ומערבבים את סדר התשובות שלהן
+      mcQs.forEach(function (q) {
+        if (q._locked) return;
+        var box = q.querySelector(".options");
+        var opts = Array.prototype.slice.call(box.children);
+        opts.forEach(function (o) { o.classList.remove("wrong", "picked"); });
+        for (var i = opts.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = opts[i]; opts[i] = opts[j]; opts[j] = t; }
+        opts.forEach(function (o) { box.appendChild(o); });
+        q._pick = null;
+      });
+      paintGate();
+    }
+  }
+  if (mcQs.length && practice) {
+    var bar2 = el("div", { "class": "check-bar" });
+    checkBtn = el("button", { "class": "btn", type: "button" }, "בדיקת התשובות");
+    gateMsg = el("span", { "class": "small" });
+    resultEl = el("div", { "class": "check-result" });
+    triesEl = el("div", { "class": "tries small" });
+    bar2.appendChild(checkBtn); bar2.appendChild(gateMsg);
+    practice.appendChild(bar2); practice.appendChild(resultEl); practice.appendChild(triesEl);
+    checkBtn.addEventListener("click", check);
+    if (lessonId && load().done[lessonId]) {
+      resultEl.className = "check-result good";
+      resultEl.textContent = "✓ כבר סיימת את השיעור הזה. אפשר לענות שוב לתרגול.";
+    }
+    paintTries(); paintGate();
+  } else if (lessonId && practice && openQs.length) {
+    // שיעור עם שאלות פתוחות בלבד
+    var s0 = load(); if (!s0.done[lessonId]) { s0.done[lessonId] = 1; save(s0); }
   }
 
   // ================= שקופיות =================
@@ -148,7 +249,7 @@
     var nextL = lv.lessons[li + 1];
     var html = "";
     if (!s.done[lessonId]) {
-      html = '<span class="small">כדי לסיים את השיעור, עני על כל שאלות הבדיקה.</span>';
+      html = '<span class="small">כדי לפתוח את השיעור הבא: כתבי תשובה לשאלה הפתוחה, ואז עני נכון על כל שאלות הבדיקה (100%).</span>';
     } else if (nextL && nextL.path) {
       html = '<span class="small">✓ סיימת את השיעור!</span><a class="btn" href="' + root + nextL.path + '">לשיעור הבא: ' + nextL.title + ' ←</a>';
     } else if (!nextL) {
@@ -281,7 +382,7 @@
         '<textarea class="code" id="code-in" placeholder="SC1-..."></textarea>' +
         '<div class="sync-row"><button class="btn" id="load-code" type="button">טעינה</button><span id="sync-msg" class="small"></span></div>';
       var out = document.getElementById("code-out");
-      out.value = "SC1-" + btoa(unescape(encodeURIComponent(JSON.stringify({ d: s.done, t: s.tests }))));
+      out.value = "SC1-" + btoa(unescape(encodeURIComponent(JSON.stringify({ d: s.done, t: s.tests, r: s.tries || {} }))));
       document.getElementById("copy-code").addEventListener("click", function () {
         out.select();
         var ok = false;
@@ -299,6 +400,8 @@
           // מיזוג: שומרים את הטוב מבין שני המכשירים
           var cur = load();
           for (var k in o.d) cur.done[k] = 1;
+          cur.tries = cur.tries || {};
+          for (var k3 in (o.r || {})) if (!cur.tries[k3] || o.r[k3].length > cur.tries[k3].length) cur.tries[k3] = o.r[k3];
           for (var k2 in o.t) {
             var a = cur.tests[k2], b = o.t[k2];
             if (!a || (b.best || 0) > (a.best || 0)) cur.tests[k2] = b;

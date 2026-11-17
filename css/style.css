@@ -265,3 +265,21 @@ figure.diagram svg text { unicode-bidi: plaintext; }
 .chain .e small { display: block; font-weight: 400; color: var(--muted); font-size: 13px; }
 .chain .to { color: var(--muted); font-size: 20px; }
 .chain .e.heat { border-color: var(--bad); }
+
+/* ===== שאלות פתוחות ובדיקה עם ניסיונות ===== */
+.open-q { background: var(--card, #fff); border: 1px dashed var(--accent); border-radius: 12px; padding: 14px 16px; margin: 0 0 18px; }
+.open-q .q-num { margin-left: 6px; }
+.open-ans { width: 100%; box-sizing: border-box; font: inherit; font-size: 16px; padding: 10px; border: 1px solid #c8d0da; border-radius: 10px; margin: 10px 0; resize: vertical; direction: rtl; }
+.open-q .btn[disabled] { opacity: .5; cursor: default; }
+.open-q .model { display: none; margin-top: 10px; padding: 10px 12px; border-radius: 10px; background: var(--good-soft); }
+.open-q .model.show { display: block; }
+.q.is-right { border-color: var(--good); }
+.q.is-wrong { border-color: var(--bad); }
+.check-bar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 16px; }
+.check-bar .btn:disabled { opacity: .5; cursor: default; }
+.check-result { margin-top: 12px; font-weight: 700; font-size: 18px; }
+.check-result.good { color: var(--good); }
+.check-result.bad { color: var(--bad); }
+.tries { margin-top: 8px; }
+.tries .try { display: inline-block; padding: 1px 8px; margin: 2px; border-radius: 999px; background: var(--bad-soft); direction: ltr; }
+.tries .try.full { background: var(--good-soft); }
