@@ -86,7 +86,7 @@
     var note = "";
     v.innerHTML = '<div class="frame"><iframe loading="lazy" allowfullscreen ' +
       'allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" ' +
-      'src="https://www.youtube-nocookie.com/embed/' + id + '?rel=0&hl=he" title="' + title + '"></iframe></div>' +
+      'src="https://www.youtube-nocookie.com/embed/' + id + '?rel=0&hl=he&enablejsapi=1" title="' + title + '"></iframe></div>' +
       '<div class="vcap"><span class="vlang">' + (isDemo ? "ניסוי · " : "סרטון · ") + lang + '</span>' + title + note + '</div>';
   });
 
@@ -299,6 +299,13 @@
 
     function go(i) {
       if (i < 0 || i >= slides.length) return;
+      // עוצרים סרטון שמתנגן בשקופית שעוזבים
+      slides.forEach(function (sl, k) {
+        if (k === i) return;
+        sl.querySelectorAll("iframe").forEach(function (f) {
+          try { f.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', "*"); } catch (e) {}
+        });
+      });
       cur = i; seen[i] = 1;
       slides.forEach(function (sl, k) { sl.classList.toggle("active", k === i); });
       Array.prototype.forEach.call(dots.children, function (d, k) {
