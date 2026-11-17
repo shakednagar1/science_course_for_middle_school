@@ -283,3 +283,4 @@ figure.diagram svg text { unicode-bidi: plaintext; }
 .tries { margin-top: 8px; }
 .tries .try { display: inline-block; padding: 1px 8px; margin: 2px; border-radius: 999px; background: var(--bad-soft); direction: ltr; }
 .tries .try.full { background: var(--good-soft); }
+.q.hard-q .q-text::after { content: "מאתגרת · חישוב"; font-size: 12px; background: var(--bad-soft); color: var(--bad); border-radius: 6px; padding: 0 6px; margin-right: 8px; font-weight: 400; }

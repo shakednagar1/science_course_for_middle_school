@@ -33,17 +33,26 @@
     return (BANK[id] || []).map(function (q, k) { q.id = q.id || id + "#" + k; q.level = id; return q; });
   }
 
+  // הרכב המבחן: 5 קלות, 7 בינוניות, 3 מאתגרות (עם חישוב) מהשלב + 3 שאלות חזרה משלבים קודמים.
+  // מבחן הסיום: מכל שלב 1 קלה, 2 בינוניות, 1 מאתגרת.
+  function byD(pool, d) { return pool.filter(function (q) { return (q.d || 2) === d; }); }
+  function pickMix(pool, mix) {
+    var out = [];
+    [1, 2, 3].forEach(function (d) { out = out.concat(pick(byD(pool, d), mix[d - 1])); });
+    var need = mix[0] + mix[1] + mix[2] - out.length;
+    if (need > 0) out = out.concat(pick(pool.filter(function (q) { return out.indexOf(q) < 0; }), need));
+    return out;
+  }
   var qs = [];
   if (lv.final) {
-    for (var i = 0; i < li; i++) qs = qs.concat(pick(bankOf(C.levels[i].id), 4));
-    qs = shuffle(qs);
+    for (var i = 0; i < li; i++) qs = qs.concat(pickMix(bankOf(C.levels[i].id), [1, 2, 1]));
+    qs.sort(function (a, b) { return (a.d || 2) - (b.d || 2); });
   } else {
-    var mainN = li === 0 ? 12 : 10;
-    qs = pick(bankOf(lv.id), mainN);
+    qs = pickMix(bankOf(lv.id), [5, 7, 3]);
     if (li > 0) {
       var review = [];
       for (var j = 0; j < li; j++) review = review.concat(bankOf(C.levels[j].id));
-      pick(review, 4).forEach(function (q) { q.review = true; qs.push(q); });
+      pick(review.filter(function (q) { return (q.d || 2) < 3; }), 3).forEach(function (q) { q.review = true; qs.push(q); });
     }
   }
   if (!qs.length) { main.innerHTML = '<p>שאלות המבחן הזה עדיין בהכנה. <a href="index.html">חזרה למפה</a></p>'; return; }
@@ -63,7 +72,7 @@
 
   qs.forEach(function (q, n) {
     var d = document.createElement("div");
-    d.className = "q" + (q.review ? " review-q" : "");
+    d.className = "q" + (q.review ? " review-q" : "") + (!q.review && q.d === 3 ? " hard-q" : "");
     var inner = '<div class="q-text"><span class="q-num">' + (n + 1) + '.</span>' + q.q + '</div>' + (q.fig || "");
     if (q.o) {
       // ערבוב סדר התשובות (אלא אם נקבע אחרת)
