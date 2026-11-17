@@ -86,9 +86,38 @@
     var note = "";
     v.innerHTML = '<div class="frame"><iframe loading="lazy" allowfullscreen ' +
       'allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" ' +
-      'src="https://www.youtube-nocookie.com/embed/' + id + '?rel=0&hl=he&enablejsapi=1" title="' + title + '"></iframe></div>' +
+      'src="https://www.youtube-nocookie.com/embed/' + id + '?rel=0&hl=he&enablejsapi=1&origin=' + encodeURIComponent(location.origin) + '" title="' + title + '"></iframe></div>' +
       '<div class="vcap"><span class="vlang">' + (isDemo ? "ניסוי · " : "סרטון · ") + lang + '</span>' + title + note + '</div>';
   });
+
+  // עצירת סרטון: דרך YouTube IFrame API; אם ה־API לא נטען – טוענים את הסרטון מחדש (וזה עוצר אותו)
+  var ytPlayers = [];
+  function stopVideo(f) {
+    var pl = f._yt;
+    if (pl && typeof pl.pauseVideo === "function" && pl._ready) { try { pl.pauseVideo(); return; } catch (e) {} }
+    if (f._started) { var src = f.src; f.src = "about:blank"; f.src = src; f._started = false; }
+  }
+  var vFrames = document.querySelectorAll(".video iframe");
+  if (vFrames.length) {
+    vFrames.forEach(function (f) {
+      // סימון שהסרטון הופעל (לחיצה בתוך iframe מורידה את הפוקוס מהעמוד)
+      window.addEventListener("blur", function () { setTimeout(function () { if (document.activeElement === f) f._started = true; }, 0); });
+    });
+    var prevReady = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = function () {
+      if (prevReady) try { prevReady(); } catch (e) {}
+      vFrames.forEach(function (f) {
+        try {
+          var pl = new YT.Player(f, { events: { onReady: function () { pl._ready = true; },
+            onStateChange: function (ev) { if (ev.data === 1) f._started = true; } } });
+          f._yt = pl;
+        } catch (e) {}
+      });
+    };
+    var tag = document.createElement("script");
+    tag.src = "https://www.youtube.com/iframe_api";
+    document.head.appendChild(tag);
+  }
 
   // ================= שאלות פתוחות + שאלות בדיקה בשיעור =================
   // שאלות פתוחות: כותבים תשובה במילים שלך, ואז אפשר לראות תשובה לדוגמה.
@@ -302,9 +331,7 @@
       // עוצרים סרטון שמתנגן בשקופית שעוזבים
       slides.forEach(function (sl, k) {
         if (k === i) return;
-        sl.querySelectorAll("iframe").forEach(function (f) {
-          try { f.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', "*"); } catch (e) {}
-        });
+        sl.querySelectorAll("iframe").forEach(stopVideo);
       });
       cur = i; seen[i] = 1;
       slides.forEach(function (sl, k) { sl.classList.toggle("active", k === i); });
